@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 const Header: React.FC = () => {
   return (
     <header style={{
-      padding: '1rem',
+      width: '100vw',
+      boxSizing: 'border-box',
+      padding: '1rem 2rem',
       backgroundColor: '#282c34',
       color: 'white',
       display: 'flex',

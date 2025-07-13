@@ -1,3 +1,10 @@
+/* index.css や App.css に追加 */
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  font-family: sans-serif;
+}
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
