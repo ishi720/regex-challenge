@@ -6,7 +6,7 @@
       "type": "pwa-chrome",
       "request": "launch",
       "url": "http://localhost:5173",
-      "webRoot": "${workspaceFolder}/src",
+      "webRoot": "${workspaceFolder}/client/src",
       "preLaunchTask": "npm: dev"
     }
   ]
