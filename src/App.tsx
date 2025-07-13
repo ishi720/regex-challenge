@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+
 import ListPage from './pages/ListPage';
+import ChallengePage from './pages/ChallengePage';
 
-const ChallengePage = () => <div><h1>チャレンジページ</h1></div>;
-
-function App() {
+const App: React.FC = () => {
   return (
     <BrowserRouter>
       <Routes>
@@ -13,6 +13,6 @@ function App() {
       </Routes>
     </BrowserRouter>
   );
-}
+};
 
 export default App;
