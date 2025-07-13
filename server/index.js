@@ -1,18 +1,18 @@
-const express = require('express');
-const cors = require('cors');
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import userRoutes from './routes/users.js';
+
 const app = express();
-require('dotenv').config();
+dotenv.config();
 
 const PORT = process.env.PORT || 3001;
 
 app.use(cors());
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.send('Hello, World!');
-});
-
+app.use('/api/users', userRoutes);
 
 app.listen(PORT, () => {
-  console.log(`サーバー起動: http://localhost:${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
