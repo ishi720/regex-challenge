@@ -16,7 +16,7 @@ const Header: React.FC = () => {
       <Link to="/" style={{ textDecoration: 'none', color: 'white', fontWeight: 'bold', fontSize: '1.2rem' }}>
       正規表現チャレンジ</Link>
       <nav>
-        <Link to="/" style={{ color: 'white', marginRight: '1rem' }}>一覧</Link>
+        <Link to="/list" style={{ color: 'white', marginRight: '1rem' }}>一覧</Link>
         <Link to="/about" style={{ color: 'white', marginRight: '1rem' }}>正規表現とは</Link>
       </nav>
     </header>
