@@ -23,7 +23,7 @@ const ChallengePage: React.FC = () => {
       const result = sampleText.replace(regex, replaceInput);
       setTestResult(result);
     } catch (error) {
-      setTestResult('正規表現の構文エラーです');
+      setTestResult(`正規表現の構文エラーです: ${error}`);
     }
   };
 
