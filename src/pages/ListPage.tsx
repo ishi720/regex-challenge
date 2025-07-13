@@ -1,22 +1,35 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { challenges } from '../data/challenges';
+import React, { useEffect } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import Header from '../components/Header';
+import { challenges } from '../data/challenges';
 
 const ITEMS_PER_PAGE = 10;
 
 const ListPage: React.FC = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const totalPages = Math.ceil(challenges.length / ITEMS_PER_PAGE);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const pageParam = parseInt(searchParams.get('page') || '1', 10);
+  const currentPage = isNaN(pageParam) || pageParam < 1 ? 1 : pageParam;
 
+  const totalPages = Math.ceil(challenges.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const currentItems = challenges.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+  const handlePageChange = (page: number) => {
+    setSearchParams({ page: String(page) });
+  };
+
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setSearchParams({ page: String(totalPages) });
+    }
+  }, [currentPage, totalPages, setSearchParams]);
 
   return (
     <>
       <Header />
       <div style={{ padding: '2rem' }}>
-        <h1>正規表現チャレンジ一覧</h1>
+        <h1>チャレンジ一覧</h1>
+
         <table border={1} cellPadding={8} cellSpacing={0}>
           <thead>
             <tr>
@@ -45,7 +58,7 @@ const ListPage: React.FC = () => {
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
             <button
               key={page}
-              onClick={() => setCurrentPage(page)}
+              onClick={() => handlePageChange(page)}
               style={{
                 margin: '0 5px',
                 padding: '5px 10px',
