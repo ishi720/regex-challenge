@@ -16,6 +16,7 @@ const Header: React.FC = () => {
       <h2>正規表現チャレンジ</h2>
       <nav>
         <Link to="/" style={{ color: 'white', marginRight: '1rem' }}>一覧</Link>
+        <Link to="/about" style={{ color: 'white', marginRight: '1rem' }}>正規表現とは</Link>
       </nav>
     </header>
   );

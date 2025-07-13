@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage';
 import ListPage from './pages/ListPage';
 import ChallengePage from './pages/ChallengePage';
 import ResultPage from './pages/ResultPage';
+import AboutPage from './pages/AboutPage';
 
 const App: React.FC = () => {
   return (
@@ -14,6 +15,7 @@ const App: React.FC = () => {
         <Route path="/list" element={<ListPage />} />
         <Route path="/challenge/:id" element={<ChallengePage />} />
         <Route path="/result" element={<ResultPage />} />
+        <Route path="/about" element={<AboutPage />} />
       </Routes>
     </BrowserRouter>
   );
