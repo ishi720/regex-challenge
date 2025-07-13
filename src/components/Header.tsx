@@ -13,7 +13,8 @@ const Header: React.FC = () => {
       justifyContent: 'space-between',
       alignItems: 'center'
     }}>
-      <h2>正規表現チャレンジ</h2>
+      <Link to="/" style={{ textDecoration: 'none', color: 'white', fontWeight: 'bold', fontSize: '1.2rem' }}>
+      正規表現チャレンジ</Link>
       <nav>
         <Link to="/" style={{ color: 'white', marginRight: '1rem' }}>一覧</Link>
         <Link to="/about" style={{ color: 'white', marginRight: '1rem' }}>正規表現とは</Link>
