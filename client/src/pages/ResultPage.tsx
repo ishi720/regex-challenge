@@ -1,15 +1,17 @@
 import React from 'react';
 import Header from '../components/Header';
+import { useParams } from 'react-router-dom';
 import Breadcrumbs from '../components/Breadcrumbs';
 
 const ResultPage: React.FC = () => {
+  const { id } = useParams<{ id: string }>();
   return (
     <>
       <Header />
       <Breadcrumbs />
       <div style={{ padding: '2rem' }}>
         <h1>結果ページ</h1>
-        <p>ここに、チャレンジ結果や正解・不正解の判定などを表示します（仮）。</p>
+        <p>このページはチャレンジID「{id}」の結果を表示しています。</p>
       </div>
     </>
   );

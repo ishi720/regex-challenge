@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import { challenges } from '../data/challenges';
 import Breadcrumbs from '../components/Breadcrumbs';
@@ -29,9 +29,13 @@ const ChallengePage: React.FC = () => {
     }
   };
 
-  // 「回答」ボタンの処理（仮）
+  // 「回答」ボタンの処理
+  const navigate = useNavigate();
   const handleSubmit = () => {
-    alert('回答を送信しました。');
+    const confirmed = window.confirm("ほんとうに回答してもいいですか？");
+    if (confirmed) {
+      navigate(`/result/${challengeId}`);
+    }
   };
 
   return (

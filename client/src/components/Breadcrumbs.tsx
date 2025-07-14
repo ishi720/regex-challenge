@@ -15,7 +15,7 @@ const Breadcrumbs = () => {
       { label: 'チャレンジ一覧', to: '/list' },
       { label: 'チャレンジ' }
     );
-  } else if (pathname === '/result') {
+  } else if (pathname.startsWith('/result/')) {
     crumbs.push(
       { label: 'チャレンジ一覧', to: '/list' },
       { label: '結果' }
