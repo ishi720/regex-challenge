@@ -71,12 +71,18 @@ const ChallengePage: React.FC = () => {
                 </button>
                 <button onClick={handleSubmit}>回答</button>
               </div>
-
               {challenge.sampleInputs.map((input, i) => (
                 <div key={i} style={{ marginBottom: '1.5rem' }}>
                   <p><strong>入力{i + 1}:</strong> {input}</p>
                   {testResults[i] !== undefined && (
-                    <p><strong>結果:</strong> {testResults[i]}</p>
+                    <>
+                      <p><strong>結果:</strong> {testResults[i]}</p>
+                      <p>
+                        判定: {testResults[i] === challenge.expectedOutputs[i][0]
+                          ? <span style={{ color: 'green' }}>✅ OK</span>
+                          : <span style={{ color: 'red' }}>❌ NG</span>}
+                      </p>
+                    </>
                   )}
                 </div>
               ))}
