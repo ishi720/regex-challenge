@@ -1,10 +1,12 @@
 import React from 'react';
 import Header from '../components/Header';
+import Breadcrumbs from '../components/Breadcrumbs';
 
 const AboutPage: React.FC = () => {
   return (
     <>
       <Header />
+      <Breadcrumbs />
       <div style={{ padding: '2rem', lineHeight: 1.8 }}>
         <h1>正規表現とは</h1>
 

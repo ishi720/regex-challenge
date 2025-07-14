@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Header from '../components/Header';
 import { challenges } from '../data/challenges';
+import Breadcrumbs from '../components/Breadcrumbs';
+
 
 const ChallengePage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -35,6 +37,7 @@ const ChallengePage: React.FC = () => {
   return (
     <>
       <Header />
+      <Breadcrumbs />
       <div style={{ padding: '2rem' }}>
         {challenge ? (
           <>

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import Header from '../components/Header';
+import Breadcrumbs from '../components/Breadcrumbs';
 import { challenges } from '../data/challenges';
 
 const ITEMS_PER_PAGE = 10;
@@ -27,6 +28,7 @@ const ListPage: React.FC = () => {
   return (
     <>
       <Header />
+      <Breadcrumbs />
       <div style={{ padding: '2rem' }}>
         <h1>チャレンジ一覧</h1>
 
