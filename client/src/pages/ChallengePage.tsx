@@ -4,35 +4,32 @@ import Header from '../components/Header';
 import { challenges } from '../data/challenges';
 import Breadcrumbs from '../components/Breadcrumbs';
 
-
 const ChallengePage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const challengeId = Number(id);
   const challenge = challenges.find((c) => c.id === challengeId);
 
-  // 入力欄の状態管理
   const [regexInput, setRegexInput] = useState('');
   const [replaceInput, setReplaceInput] = useState('');
-  const [testResult, setTestResult] = useState<string | null>(null);
+  const [testResults, setTestResults] = useState<string[]>([]);
 
-  // テスト対象の文字列（本来は問題データと紐付け）
-  const sampleText = 'abc123xyz';
+  const navigate = useNavigate();
 
-  // 「テスト」ボタンの処理
   const handleTest = () => {
+    if (!challenge) return;
     try {
-      const regex = new RegExp(regexInput, 'g');
-      const result = sampleText.replace(regex, replaceInput);
-      setTestResult(result);
+      const regex = new RegExp(regexInput, 'gu');
+      const results = challenge.sampleInputs.map((text) =>
+        text.replace(regex, replaceInput)
+      );
+      setTestResults(results);
     } catch (error) {
-      setTestResult(`正規表現の構文エラーです: ${error}`);
+      setTestResults(challenge.sampleInputs.map(() => `正規表現の構文エラーです: ${error}`));
     }
   };
 
-  // 「回答」ボタンの処理
-  const navigate = useNavigate();
   const handleSubmit = () => {
-    const confirmed = window.confirm("ほんとうに回答してもいいですか？");
+    const confirmed = window.confirm('ほんとうに回答してもいいですか？');
     if (confirmed) {
       navigate(`/result/${challengeId}`);
     }
@@ -47,7 +44,7 @@ const ChallengePage: React.FC = () => {
           <>
             <h1>{challenge.title}</h1>
             <p><strong>難易度:</strong> {challenge.difficulty}</p>
-            <p>問題文：英字と数字が混在する文字列から数字だけを抜き出し、ハイフンに置き換えなさい。</p>
+            <p>問題文：{challenge.description}</p>
 
             <hr style={{ margin: '2rem 0' }} />
 
@@ -57,7 +54,6 @@ const ChallengePage: React.FC = () => {
                 type="text"
                 value={regexInput}
                 onChange={(e) => setRegexInput(e.target.value)}
-                placeholder=""
                 style={{ width: '100%', padding: '8px', marginBottom: '1rem' }}
               />
 
@@ -66,7 +62,6 @@ const ChallengePage: React.FC = () => {
                 type="text"
                 value={replaceInput}
                 onChange={(e) => setReplaceInput(e.target.value)}
-                placeholder=""
                 style={{ width: '100%', padding: '8px', marginBottom: '1rem' }}
               />
 
@@ -77,10 +72,14 @@ const ChallengePage: React.FC = () => {
                 <button onClick={handleSubmit}>回答</button>
               </div>
 
-              <p><strong>テスト対象:</strong> {sampleText}</p>
-              {testResult !== null && (
-                <p><strong>結果:</strong> {testResult}</p>
-              )}
+              {challenge.sampleInputs.map((input, i) => (
+                <div key={i} style={{ marginBottom: '1.5rem' }}>
+                  <p><strong>入力{i + 1}:</strong> {input}</p>
+                  {testResults[i] !== undefined && (
+                    <p><strong>結果:</strong> {testResults[i]}</p>
+                  )}
+                </div>
+              ))}
             </div>
           </>
         ) : (
