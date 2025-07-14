@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import Breadcrumbs from '../components/Breadcrumbs';
 import { challenges } from '../data/challenges';
 
-const ITEMS_PER_PAGE = 10;
+const ITEMS_PER_PAGE = 12;
 
 const ListPage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -25,35 +25,58 @@ const ListPage: React.FC = () => {
     }
   }, [currentPage, totalPages, setSearchParams]);
 
+  const getBadgeColor = (difficulty: string) => {
+    switch (difficulty) {
+      case '初級': return '#38bdf8';
+      case '中級': return '#facc15';
+      case '上級': return '#f87171';
+      default: return '#e5e7eb';
+    }
+  };
+
   return (
     <>
       <Header />
       <Breadcrumbs />
       <div style={{ padding: '2rem' }}>
-        <h1>チャレンジ一覧</h1>
+        <h1 style={{ fontSize: '2rem', marginBottom: '1.5rem' }}>チャレンジ一覧</h1>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '1.5rem' }}>
+          {currentItems.map((challenge) => (
+            <div key={challenge.id} style={{
+              border: '1px solid #ddd',
+              borderRadius: '12px',
+              padding: '1.5rem',
+              boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+              background: 'white'
+            }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <h2 style={{ fontSize: '1.2rem', margin: 0 }}>{challenge.title}</h2>
+                <span style={{
+                  backgroundColor: getBadgeColor(challenge.difficulty),
+                  color: 'white',
+                  padding: '0.3rem 0.7rem',
+                  borderRadius: '8px',
+                  fontSize: '0.9rem'
+                }}>
+                  {challenge.difficulty}
+                </span>
+              </div>
+              <Link to={`/challenge/${challenge.id}`}>
+                <button style={{
+                  background: '#3b82f6',
+                  color: 'white',
+                  border: 'none',
+                  padding: '0.5rem 1rem',
+                  borderRadius: '6px',
+                  cursor: 'pointer'
+                }}>
+                  チャレンジを始める
+                </button>
+              </Link>
+            </div>
+          ))}
+        </div>
 
-        <table border={1} cellPadding={8} cellSpacing={0}>
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>タイトル</th>
-              <th>難易度</th>
-              <th>詳細</th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentItems.map((challenge) => (
-              <tr key={challenge.id}>
-                <td>{challenge.id}</td>
-                <td>{challenge.title}</td>
-                <td>{challenge.difficulty}</td>
-                <td>
-                  <Link to={`/challenge/${challenge.id}`}>見る</Link>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
 
         {/* ページネーション */}
         <div style={{ marginTop: '1rem' }}>
