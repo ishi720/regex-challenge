@@ -3,10 +3,10 @@ import db from '../db.js';
 
 const router = express.Router();
 
-// ユーザー一覧取得
+// チャレンジ一覧取得
 router.get('/', async (req, res) => {
   try {
-    const [rows] = await db.query('SELECT * FROM users');
+    const [rows] = await db.query('SELECT * FROM challenges');
     res.json(rows);
   } catch (err) {
     console.error(err);
