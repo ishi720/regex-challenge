@@ -9,7 +9,7 @@ const HomePage: React.FC = () => {
       <Header />
       <Breadcrumbs />
       <div style={{ padding: '2rem' }}>
-        <h1>正規表現チャレンジへようこそ！</h1>
+        <h1 style={{ fontSize: '2rem', marginBottom: '1.5rem' }}>正規表現チャレンジへようこそ！</h1>
         <p>このアプリでは正規表現の問題を解いて、腕を磨くことができます。</p>
         <Link to="/list">▶ チャレンジ一覧へ進む</Link>
       </div>

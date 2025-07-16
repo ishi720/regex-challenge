@@ -10,7 +10,7 @@ const ResultPage: React.FC = () => {
       <Header />
       <Breadcrumbs />
       <div style={{ padding: '2rem' }}>
-        <h1>結果ページ</h1>
+        <h1  style={{ fontSize: '2rem', marginBottom: '1.5rem' }}>結果ページ</h1>
         <p>このページはチャレンジID「{id}」の結果を表示しています。</p>
       </div>
     </>

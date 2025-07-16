@@ -8,7 +8,7 @@ const AboutPage: React.FC = () => {
       <Header />
       <Breadcrumbs />
       <div style={{ padding: '2rem', lineHeight: 1.8 }}>
-        <h1>正規表現とは</h1>
+        <h1 style={{ fontSize: '2rem', marginBottom: '1.5rem' }}>正規表現とは</h1>
 
         <p>
           正規表現は、文字列のパターンを指定して検索・置換を行うための表現方法です。

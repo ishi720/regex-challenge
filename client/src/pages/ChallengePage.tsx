@@ -42,7 +42,7 @@ const ChallengePage: React.FC = () => {
       <div style={{ padding: '2rem' }}>
         {challenge ? (
           <>
-            <h1>{challenge.title}</h1>
+            <h1 style={{ fontSize: '2rem', marginBottom: '1.5rem' }}>{challenge.title}</h1>
             <p><strong>難易度:</strong> {challenge.difficulty}</p>
             <p>問題文：{challenge.description}</p>
 
