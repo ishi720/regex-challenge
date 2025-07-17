@@ -9,7 +9,7 @@ const Breadcrumbs = () => {
   if (pathname === '/list') {
     crumbs.push({ label: 'チャレンジ一覧' });
   } else if (pathname === '/about') {
-    crumbs.push({ label: 'このサイトについて' });
+    crumbs.push({ label: '正規表現とは' });
   } else if (pathname.startsWith('/challenge/')) {
     crumbs.push(
       { label: 'チャレンジ一覧', to: '/list' },
