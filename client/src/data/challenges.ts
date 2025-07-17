@@ -1,5 +1,6 @@
 export type Challenge = {
   id: number;
+  challengeId: string;
   title: string;
   difficulty: '初級' | '中級' | '上級';
   description: string;
@@ -10,6 +11,7 @@ export type Challenge = {
 export const challenges: Challenge[] = [
   {
     id: 1,
+    challengeId: '2d814586-631b-11f0-bed3-9c6b00411dbe',
     title: '数字のカンマ区切りを削除する',
     difficulty: '初級',
     description:
@@ -25,6 +27,7 @@ export const challenges: Challenge[] = [
   },
   {
     id: 2,
+    challengeId: '2fe61651-5ece-2dbe-cd87-fd81a0b45afa',
     title: '氏名のスペースを削除する',
     difficulty: '初級',
     description:

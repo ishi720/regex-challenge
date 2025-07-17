@@ -1,6 +1,7 @@
 -- チャレンジテーブル
 CREATE TABLE IF NOT EXISTS challenges (
-  id INT AUTO_INCREMENT PRIMARY KEY COMMENT 'チャレンジID',
+  id INT AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
+  challenge_id CHAR(36) NOT NULL COMMENT 'チャレンジID（UUID）',
   title VARCHAR(255) NOT NULL COMMENT 'タイトル',
   description TEXT NOT NULL COMMENT '問題文の説明',
   difficulty ENUM('初級', '中級', '上級') NOT NULL COMMENT '難易度',

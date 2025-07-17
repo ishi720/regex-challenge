@@ -61,7 +61,7 @@ const ListPage: React.FC = () => {
                   {challenge.difficulty}
                 </span>
               </div>
-              <Link to={`/challenge/${challenge.id}`}>
+              <Link to={`/challenge/${challenge.challengeId}`}>
                 <button style={{
                   background: '#3b82f6',
                   color: 'white',

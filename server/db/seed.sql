@@ -1,4 +1,5 @@
 INSERT INTO `challenges` (
+  `challenge_id`,
   `title`,
   `description`,
   `difficulty`,
@@ -7,6 +8,7 @@ INSERT INTO `challenges` (
   `created_at`,
   `updated_at`
 ) VALUES (
+  UUID(),
   '数字の削除する',
   '文字列に含まれる数字（0-9）を取り除いてください。',
   '初級',

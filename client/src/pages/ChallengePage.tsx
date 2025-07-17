@@ -5,9 +5,8 @@ import { challenges } from '../data/challenges';
 import Breadcrumbs from '../components/Breadcrumbs';
 
 const ChallengePage: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
-  const challengeId = Number(id);
-  const challenge = challenges.find((c) => c.id === challengeId);
+  const { challengeId } = useParams<{ challengeId: string }>();
+  const challenge = challenges.find((c) => c.challengeId === challengeId);
 
   const [regexInput, setRegexInput] = useState('');
   const [replaceInput, setReplaceInput] = useState('');
@@ -24,14 +23,16 @@ const ChallengePage: React.FC = () => {
       );
       setTestResults(results);
     } catch (error) {
-      setTestResults(challenge.sampleInputs.map(() => `正規表現の構文エラーです: ${error}`));
+      setTestResults(
+        challenge.sampleInputs.map(() => `正規表現の構文エラーです: ${error}`)
+      );
     }
   };
 
   const handleSubmit = () => {
     const confirmed = window.confirm('ほんとうに回答してもいいですか？');
-    if (confirmed) {
-      navigate(`/result/${challengeId}`);
+    if (confirmed && challenge) {
+      navigate(`/result/${challenge.challengeId}`);
     }
   };
 
@@ -71,6 +72,7 @@ const ChallengePage: React.FC = () => {
                 </button>
                 <button onClick={handleSubmit}>回答</button>
               </div>
+
               {challenge.sampleInputs.map((input, i) => (
                 <div key={i} style={{ marginBottom: '1.5rem' }}>
                   <p><strong>入力{i + 1}:</strong> {input}</p>
