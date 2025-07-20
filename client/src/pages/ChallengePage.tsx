@@ -12,7 +12,7 @@ interface Challenge {
   difficulty: string;
   challengeId: string;
   sampleInputs: string[];
-  expectedOutputs: string[];
+  expectedOutputs: string[][];
   createdAt: string;
   updatedAt: string;
 }
@@ -136,7 +136,7 @@ const ChallengePage: React.FC = () => {
                       <p><strong>結果:</strong> {testResults[i]}</p>
                       <p>
                         判定:{' '}
-                        {testResults[i] === challenge.expectedOutputs[i]
+                        {challenge.expectedOutputs[i].includes(testResults[i])
                           ? <span style={{ color: 'green' }}>✅ OK</span>
                           : <span style={{ color: 'red' }}>❌ NG</span>}
                       </p>
