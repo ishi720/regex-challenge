@@ -1,18 +1,67 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
-import { challenges } from '../data/challenges';
 import Breadcrumbs from '../components/Breadcrumbs';
+import { challenges as stubChallenges } from '../data/challenges';
+import { USE_STUB_DATA, API_ENDPOINT } from '../config';
+
+interface Challenge {
+  id: number;
+  title: string;
+  description: string;
+  difficulty: string;
+  challengeId: string;
+  sampleInputs: string[];
+  expectedOutputs: string[];
+  createdAt: string;
+  updatedAt: string;
+}
 
 const ChallengePage: React.FC = () => {
   const { challengeId } = useParams<{ challengeId: string }>();
-  const challenge = challenges.find((c) => c.challengeId === challengeId);
+  const navigate = useNavigate();
 
+  const [challenge, setChallenge] = useState<Challenge | null>(null);
   const [regexInput, setRegexInput] = useState('');
   const [replaceInput, setReplaceInput] = useState('');
   const [testResults, setTestResults] = useState<string[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    const fetchChallenge = async () => {
+      try {
+        if (USE_STUB_DATA) {
+          const found = stubChallenges.find((c) => c.challengeId === challengeId);
+          setChallenge(found || null);
+        } else {
+
+          console.log(`${API_ENDPOINT}/challenges/${challengeId}`);
+          const res = await fetch(`${API_ENDPOINT}/${challengeId}`);
+          if (!res.ok) throw new Error(`APIエラー: ${res.status}`);
+          const data = await res.json();
+
+          // camelCaseに変換
+          const formatted: Challenge = {
+            id: data.id,
+            title: data.title,
+            description: data.description,
+            difficulty: data.difficulty,
+            challengeId: data.challenge_id,
+            sampleInputs: JSON.parse(data.sample_inputs),
+            expectedOutputs: JSON.parse(data.expected_outputs),
+            createdAt: data.created_at,
+            updatedAt: data.updated_at,
+          };
+
+          setChallenge(formatted);
+        }
+      } catch (err: any) {
+        setError(err.message || 'データの取得に失敗しました');
+      }
+    };
+
+    fetchChallenge();
+  }, [challengeId]);
 
   const handleTest = () => {
     if (!challenge) return;
@@ -41,7 +90,11 @@ const ChallengePage: React.FC = () => {
       <Header />
       <Breadcrumbs />
       <div style={{ padding: '2rem' }}>
-        {challenge ? (
+        {error ? (
+          <p style={{ color: 'red' }}>{error}</p>
+        ) : !challenge ? (
+          <p>読み込み中またはチャレンジが見つかりませんでした。</p>
+        ) : (
           <>
             <h1 style={{ fontSize: '2rem', marginBottom: '1.5rem' }}>{challenge.title}</h1>
             <p><strong>難易度:</strong> {challenge.difficulty}</p>
@@ -80,7 +133,8 @@ const ChallengePage: React.FC = () => {
                     <>
                       <p><strong>結果:</strong> {testResults[i]}</p>
                       <p>
-                        判定: {testResults[i] === challenge.expectedOutputs[i][0]
+                        判定:{' '}
+                        {testResults[i] === challenge.expectedOutputs[i]
                           ? <span style={{ color: 'green' }}>✅ OK</span>
                           : <span style={{ color: 'red' }}>❌ NG</span>}
                       </p>
@@ -90,8 +144,6 @@ const ChallengePage: React.FC = () => {
               ))}
             </div>
           </>
-        ) : (
-          <p>該当するチャレンジが見つかりませんでした。</p>
         )}
       </div>
     </>
