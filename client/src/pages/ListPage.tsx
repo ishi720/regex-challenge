@@ -44,7 +44,7 @@ const ListPage: React.FC = () => {
         if (USE_STUB_DATA) {
           setChallenges(stubChallenges);
         } else {
-          const res = await fetch(API_ENDPOINT);
+          const res = await fetch(API_ENDPOINT + '/challenges');
           if (!res.ok) throw new Error(`APIエラー: ${res.status}`);
           const data = await res.json();
           // キーを変換（snake_case → camelCase）

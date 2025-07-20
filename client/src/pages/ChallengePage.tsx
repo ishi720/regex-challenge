@@ -34,9 +34,7 @@ const ChallengePage: React.FC = () => {
           const found = stubChallenges.find((c) => c.challengeId === challengeId);
           setChallenge(found || null);
         } else {
-
-          console.log()
-          const res = await fetch(`${API_ENDPOINT}/${challengeId}`);
+          const res = await fetch(`${API_ENDPOINT}/challenges/${challengeId}`);
           if (!res.ok) throw new Error(`APIエラー: ${res.status}`);
           const data = await res.json();
 
