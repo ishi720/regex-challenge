@@ -62,8 +62,12 @@ const ListPage: React.FC = () => {
 
           setChallenges(formattedData);
         }
-      } catch (err: any) {
-        setError(err.message || 'データの取得に失敗しました');
+      } catch (err: unknown) {
+          if (err instanceof Error) {
+            setError(err.message);
+          } else {
+            setError('データの取得に失敗しました');
+          }
       } finally {
         setLoading(false);
       }

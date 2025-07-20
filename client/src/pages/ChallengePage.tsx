@@ -35,7 +35,7 @@ const ChallengePage: React.FC = () => {
           setChallenge(found || null);
         } else {
 
-          console.log(`${API_ENDPOINT}/challenges/${challengeId}`);
+          console.log()
           const res = await fetch(`${API_ENDPOINT}/${challengeId}`);
           if (!res.ok) throw new Error(`APIエラー: ${res.status}`);
           const data = await res.json();
@@ -55,8 +55,12 @@ const ChallengePage: React.FC = () => {
 
           setChallenge(formatted);
         }
-      } catch (err: any) {
-        setError(err.message || 'データの取得に失敗しました');
+      } catch (err: unknown) {
+          if (err instanceof Error) {
+            setError(err.message);
+          } else {
+            setError('データの取得に失敗しました');
+          }
       }
     };
 

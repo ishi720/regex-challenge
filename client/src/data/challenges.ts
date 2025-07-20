@@ -6,6 +6,8 @@ export type Challenge = {
   description: string;
   sampleInputs: string[];
   expectedOutputs: string[][];
+  createdAt: string;
+  updatedAt: string;
 };
 
 export const challenges: Challenge[] = [
@@ -24,6 +26,8 @@ export const challenges: Challenge[] = [
       ['売上: 1000円、利益: 12345円'],
       ['価格: 123456円、税込: 1000000円'],
     ],
+    createdAt: '2023-10-01T12:00:00Z',
+    updatedAt: '2023-10-01T12:00:00Z',
   },
   {
     id: 2,
@@ -40,5 +44,7 @@ export const challenges: Challenge[] = [
       ['参加者一覧：田中太郎、小林花子'],
       ['出席者：佐藤一郎、鈴木次郎'],
     ],
+    createdAt: '2023-10-02T12:00:00Z',
+    updatedAt: '2023-10-02T12:00:00Z',
   },
 ];
