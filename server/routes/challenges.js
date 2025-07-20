@@ -15,11 +15,14 @@ router.get('/', async (req, res) => {
 });
 
 // チャレンジID指定で単体取得
-router.get('/:id', async (req, res) => {
-  const challengeId = req.params.id;
+router.get('/:challengeId', async (req, res) => {
+  const challengeId = req.params.challengeId;
 
   try {
-    const [rows] = await db.query('SELECT * FROM challenges WHERE id = ?', [challengeId]);
+    const [rows] = await db.query(
+      'SELECT * FROM challenges WHERE challenge_id = ?',
+      [challengeId]
+    );
 
     if (rows.length === 0) {
       return res.status(404).json({ error: 'チャレンジが見つかりません' });
