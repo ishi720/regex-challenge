@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS challenges (
 CREATE TABLE IF NOT EXISTS results (
   id INT AUTO_INCREMENT PRIMARY KEY COMMENT '回答結果ID',
   user_id VARCHAR(64) NOT NULL COMMENT 'ユーザーID（UUID）',
-  challenge_id INT NOT NULL COMMENT 'チャレンジID',
+  challenge_id CHAR(36) NOT NULL COMMENT 'チャレンジID（UUID）',
   regex TEXT NOT NULL COMMENT '正規表現',
   replacement TEXT NOT NULL COMMENT '置換文字列',
   is_correct BOOLEAN NOT NULL COMMENT '正誤判定',
