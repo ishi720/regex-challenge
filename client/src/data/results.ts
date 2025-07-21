@@ -22,7 +22,7 @@ export const results: Result[] = [
     id: 2,
     userId: 'aa0512e6-6d30-6036-9988-f1e6eacf3383',
     challengeId: '2fe61651-5ece-2dbe-cd87-fd81a0b45afa',
-    regex: ',(?=\d{3})',
+    regex: new RegExp(',(?=\\d{3})').source,
     replacement: '',
     isCorrect: true,
     createdAt: '2023-10-06T09:30:00Z',
