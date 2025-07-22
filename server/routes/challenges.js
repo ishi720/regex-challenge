@@ -3,7 +3,24 @@ import db from '../db.js';
 
 const router = express.Router();
 
-// チャレンジ一覧取得
+/**
+ * @swagger
+ * /api/challenges/{challengeId}:
+ *   get:
+ *     summary: チャレンジIDを指定して取得
+ *     parameters:
+ *       - in: path
+ *         name: challengeId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: チャレンジのID
+ *     responses:
+ *       200:
+ *         description: チャレンジ情報
+ *       404:
+ *         description: チャレンジが見つかりません
+ */
 router.get('/', async (req, res) => {
   try {
     const [rows] = await db.query('SELECT * FROM challenges');
