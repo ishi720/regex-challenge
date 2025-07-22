@@ -12,7 +12,9 @@ const router = express.Router();
  *       - Results
  *     responses:
  *       200:
- *         description: 全ての回答結果
+ *         description: 回答結果一覧
+ *       500:
+ *         description: DB接続エラー
  */
 router.get('/', async (req, res) => {
   try {
@@ -26,14 +28,14 @@ router.get('/', async (req, res) => {
 
 /**
  * @swagger
- * /api/results/{id}:
+ * /api/results/{challenge_id}:
  *   get:
  *     summary: 指定チャレンジIDの回答結果を取得
  *     tags:
  *       - Results
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: challengeId
  *         schema:
  *           type: string
  *         required: true
@@ -41,6 +43,8 @@ router.get('/', async (req, res) => {
  *     responses:
  *       200:
  *         description: 回答結果
+ *       500:
+ *         description: DB接続エラー
  */
 router.get('/:id', async (req, res) => {
   const challengeId = req.params.id;
@@ -82,6 +86,8 @@ router.get('/:id', async (req, res) => {
  *     responses:
  *       201:
  *         description: 回答結果が作成されました
+ *       500:
+ *         description: DB接続エラー
  */
 router.post('/', async (req, res) => {
   const { userId, challengeId, regex, replacement, isCorrect } = req.body;
