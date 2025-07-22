@@ -17,5 +17,13 @@ const options = {
 const swaggerSpec = swaggerJsdoc(options);
 
 export default (app) => {
-  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+  app.use(
+    '/api-docs',
+    swaggerUi.serve,
+    swaggerUi.setup(swaggerSpec, {
+      swaggerOptions: {
+        supportedSubmitMethods: [],
+      },
+    })
+  );
 };
