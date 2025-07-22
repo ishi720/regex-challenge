@@ -5,6 +5,27 @@ const router = express.Router();
 
 /**
  * @swagger
+ * /api/challenges:
+ *   get:
+ *     summary: チャレンジ一覧を取得
+ *     responses:
+ *       200:
+ *         description: チャレンジの配列
+ *       500:
+ *         description: DB接続エラー
+ */
+router.get('/', async (req, res) => {
+  try {
+    const [rows] = await db.query('SELECT * FROM challenges');
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'DB Error' });
+  }
+});
+
+/**
+ * @swagger
  * /api/challenges/{challengeId}:
  *   get:
  *     summary: チャレンジIDを指定して取得
@@ -20,18 +41,9 @@ const router = express.Router();
  *         description: チャレンジ情報
  *       404:
  *         description: チャレンジが見つかりません
+ *       500:
+ *         description: DB接続エラー
  */
-router.get('/', async (req, res) => {
-  try {
-    const [rows] = await db.query('SELECT * FROM challenges');
-    res.json(rows);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'DB Error' });
-  }
-});
-
-// チャレンジID指定で単体取得
 router.get('/:challengeId', async (req, res) => {
   const challengeId = req.params.challengeId;
 

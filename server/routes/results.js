@@ -3,7 +3,15 @@ import db from '../db.js';
 
 const router = express.Router();
 
-// 回答結果一覧取得
+/**
+ * @swagger
+ * /api/results:
+ *   get:
+ *     summary: 回答結果一覧を取得
+ *     responses:
+ *       200:
+ *         description: 全ての回答結果
+ */
 router.get('/', async (req, res) => {
   try {
     const [rows] = await db.query('SELECT * FROM results');
@@ -14,7 +22,22 @@ router.get('/', async (req, res) => {
   }
 });
 
-// チャレンジID指定で単体取得
+/**
+ * @swagger
+ * /api/results/{id}:
+ *   get:
+ *     summary: 指定チャレンジIDの回答結果を取得
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: チャレンジID
+ *     responses:
+ *       200:
+ *         description: 回答結果
+ */
 router.get('/:id', async (req, res) => {
   const challengeId = req.params.id;
 
@@ -28,7 +51,32 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// 新しい結果を登録
+/**
+ * @swagger
+ * /api/results:
+ *   post:
+ *     summary: 新しい回答結果を登録
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userId:
+ *                 type: string
+ *               challengeId:
+ *                 type: string
+ *               regex:
+ *                 type: string
+ *               replacement:
+ *                 type: string
+ *               isCorrect:
+ *                 type: boolean
+ *     responses:
+ *       201:
+ *         description: 回答結果が作成されました
+ */
 router.post('/', async (req, res) => {
   const { userId, challengeId, regex, replacement, isCorrect } = req.body;
 
