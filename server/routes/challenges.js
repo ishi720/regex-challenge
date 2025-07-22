@@ -8,6 +8,8 @@ const router = express.Router();
  * /api/challenges:
  *   get:
  *     summary: チャレンジ一覧を取得
+ *     tags:
+ *       - Challenges
  *     responses:
  *       200:
  *         description: チャレンジの配列
@@ -29,6 +31,8 @@ router.get('/', async (req, res) => {
  * /api/challenges/{challengeId}:
  *   get:
  *     summary: チャレンジIDを指定して取得
+ *     tags:
+ *       - Challenges
  *     parameters:
  *       - in: path
  *         name: challengeId

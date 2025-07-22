@@ -8,6 +8,8 @@ const router = express.Router();
  * /api/results:
  *   get:
  *     summary: 回答結果一覧を取得
+ *     tags:
+ *       - Results
  *     responses:
  *       200:
  *         description: 全ての回答結果
@@ -27,6 +29,8 @@ router.get('/', async (req, res) => {
  * /api/results/{id}:
  *   get:
  *     summary: 指定チャレンジIDの回答結果を取得
+ *     tags:
+ *       - Results
  *     parameters:
  *       - in: path
  *         name: id
@@ -56,6 +60,8 @@ router.get('/:id', async (req, res) => {
  * /api/results:
  *   post:
  *     summary: 新しい回答結果を登録
+ *     tags:
+ *       - Results
  *     requestBody:
  *       required: true
  *       content:
