@@ -1,13 +1,13 @@
 export type Challenge = {
-  id: number;
-  challengeId: string;
-  title: string;
-  difficulty: '初級' | '中級' | '上級';
-  description: string;
-  sampleInputs: string[];
-  expectedOutputs: string[][];
-  createdAt: string;
-  updatedAt: string;
+  id: number; // ID
+  challengeId: string;// チャレンジID（UUID）
+  title: string; // タイトル
+  difficulty: '初級' | '中級' | '上級'; // 難易度
+  description: string; // 問題文
+  sampleInputs: string[]; // サンプル入力（JSON配列）
+  expectedOutputs: string[][]; // 期待される出力（JSON配列）
+  createdAt: string; // 作成日時
+  updatedAt: string; // 更新日時
 };
 
 export const challenges: Challenge[] = [

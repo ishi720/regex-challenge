@@ -1,11 +1,11 @@
 export type Result = {
-  id: number;
-  userId: string;
-  challengeId: string;
-  regex: string;
-  replacement: string;
-  isCorrect: boolean;
-  createdAt: string;
+  id: number; // ID
+  userId: string; // ユーザーID（UUID）
+  challengeId: string; // チャレンジID（UUID）
+  regex: string; // 正規表現
+  replacement: string; // 置換文字列
+  isCorrect: boolean; // 正誤判定（true: 正解, false: 不正解）
+  createdAt: string; // 作成日時
 };
 
 export const results: Result[] = [
