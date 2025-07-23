@@ -13,6 +13,12 @@ const router = express.Router();
  *     responses:
  *       200:
  *         description: 回答結果一覧
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Result'
  *       500:
  *         description: DB接続エラー
  */
@@ -43,6 +49,12 @@ router.get('/', async (req, res) => {
  *     responses:
  *       200:
  *         description: 回答結果
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Result'
  *       500:
  *         description: DB接続エラー
  */

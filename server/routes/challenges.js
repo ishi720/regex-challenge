@@ -13,6 +13,12 @@ const router = express.Router();
  *     responses:
  *       200:
  *         description: チャレンジの配列
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Challenge'
  *       500:
  *         description: DB接続エラー
  */
@@ -43,6 +49,12 @@ router.get('/', async (req, res) => {
  *     responses:
  *       200:
  *         description: チャレンジ情報
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Challenge'
  *       404:
  *         description: チャレンジが見つかりません
  *       500:
