@@ -1,4 +1,16 @@
 {
+  "name": "regex-challenge",
+  "version": "1.0.0",
+  "description": "正規表現の問題を解くことができるサービスです。",
+  "homepage": "https://github.com/ishi720/regex-challenge#readme",
+  "bugs": {
+    "url": "https://github.com/ishi720/regex-challenge/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ishi720/regex-challenge.git"
+  },
+  "author": "ishi720",
   "scripts": {
     "dev": "cd client && npm run dev"
   }
