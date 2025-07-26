@@ -7,8 +7,6 @@ const HomePage: React.FC = () => {
   const styles = {
     main: {
       padding: '4rem 2rem',
-      backgroundColor: '#f9fafb',
-      minHeight: '100vh',
       display: 'flex',
       flexDirection: 'column' as const,
       alignItems: 'center',
@@ -33,7 +31,7 @@ const HomePage: React.FC = () => {
       fontSize: '1rem',
       fontWeight: 600,
       padding: '0.75rem 1.5rem',
-      borderRadius: '9999px',
+      borderRadius: '5px',
       textDecoration: 'none',
       boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
       transition: 'background-color 0.3s',
@@ -64,7 +62,7 @@ const HomePage: React.FC = () => {
           onMouseEnter={() => setIsHover(true)}
           onMouseLeave={() => setIsHover(false)}
         >
-          ▶ チャレンジ一覧へ進む
+          チャレンジ一覧へ進む
         </Link>
       </main>
     </>
