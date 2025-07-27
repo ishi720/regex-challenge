@@ -22,12 +22,18 @@ const Breadcrumbs = () => {
     );
   }
 
-  return (
+return (
     <nav style={{ padding: '1rem 2rem', fontSize: '0.9rem' }}>
       {crumbs.map((crumb, idx) => (
         <span key={idx}>
           {idx > 0 && ' > '}
-          {crumb.to ? <Link to={crumb.to}>{crumb.label}</Link> : crumb.label}
+          {crumb.to ? (
+            <Link to={crumb.to} style={{fontWeight: 'normal', color: 'black', textDecoration: 'underline' }}>
+              {crumb.label}
+            </Link>
+          ) : (
+            crumb.label
+          )}
         </span>
       ))}
     </nav>
