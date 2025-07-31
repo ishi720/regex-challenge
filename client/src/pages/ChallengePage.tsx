@@ -80,12 +80,55 @@ const ChallengePage: React.FC = () => {
     }
   };
 
-  const handleSubmit = () => {
+  // const handleSubmit = () => {
+  //   const confirmed = window.confirm('ほんとうに回答してもいいですか？');
+  //   if (confirmed && challenge) {
+  //     navigate(`/result/${challenge.challengeId}`);
+  //   }
+  // };
+  const handleSubmit = async () => {
+    if (!challenge) return;
+
     const confirmed = window.confirm('ほんとうに回答してもいいですか？');
-    if (confirmed && challenge) {
-      navigate(`/result/${challenge.challengeId}`);
+
+    if (!confirmed) return;
+
+    try {
+      if (USE_STUB_DATA) {
+        navigate(`/result/${challenge.challengeId}`);
+      } else {
+        const response = await fetch(`${API_ENDPOINT}/results`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            userId: 'test-user', // 仮のユーザーID
+            challengeId: challenge.challengeId,
+            regex: regexInput,
+            replacement: replaceInput,
+            isCorrect: true, // 仮の正誤判定
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`登録失敗: ${response.status}`);
+        }
+
+        const result = await response.json();
+        navigate(`/result/${challenge.challengeId}`, { state: result });
+
+      }
+
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        alert(`エラー: ${err.message}`);
+      } else {
+        alert('予期せぬエラーが発生しました');
+      }
     }
   };
+
 
   return (
     <>
