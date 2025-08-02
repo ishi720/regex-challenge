@@ -54,17 +54,18 @@ const ChallengePage: React.FC = () => {
           setChallenge(formatted);
         }
       } catch (err: unknown) {
-          if (err instanceof Error) {
-            setError(err.message);
-          } else {
-            setError('データの取得に失敗しました');
-          }
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError('データの取得に失敗しました');
+        }
       }
     };
 
     fetchChallenge();
   }, [challengeId]);
 
+  // 「テスト」ボタンの処理
   const handleTest = () => {
     if (!challenge) return;
     try {
@@ -80,12 +81,7 @@ const ChallengePage: React.FC = () => {
     }
   };
 
-  // const handleSubmit = () => {
-  //   const confirmed = window.confirm('ほんとうに回答してもいいですか？');
-  //   if (confirmed && challenge) {
-  //     navigate(`/result/${challenge.challengeId}`);
-  //   }
-  // };
+  // 「回答」ボタンの処理
   const handleSubmit = async () => {
     if (!challenge) return;
 
