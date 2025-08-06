@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Breadcrumbs from '../components/Breadcrumbs';
 import { challenges as stubChallenges } from '../data/challenges';
-import { USE_STUB_DATA, API_ENDPOINT } from '../config';
+import { USE_DATA_MODE, API_ENDPOINT } from '../config';
 
 interface Challenge {
   id: number;
@@ -30,7 +30,7 @@ const ChallengePage: React.FC = () => {
   useEffect(() => {
     const fetchChallenge = async () => {
       try {
-        if (USE_STUB_DATA) {
+        if (USE_DATA_MODE === 'STUB') {
           const found = stubChallenges.find((c) => c.challengeId === challengeId);
           setChallenge(found || null);
         } else {
@@ -90,7 +90,7 @@ const ChallengePage: React.FC = () => {
     if (!confirmed) return;
 
     try {
-      if (USE_STUB_DATA) {
+      if (USE_DATA_MODE === 'STUB') {
         navigate(`/result/${challenge.challengeId}`);
       } else {
         const response = await fetch(`${API_ENDPOINT}/results`, {
