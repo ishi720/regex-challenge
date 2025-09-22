@@ -156,29 +156,22 @@ const ChallengePage: React.FC = () => {
             </div>
 
             {/* サンプル入力と期待される出力 */}
-            <div style={{
-              border: '1px solid #ddd',
-              borderRadius: '8px',
-              padding: '1rem',
-              marginBottom: '1rem',
-              backgroundColor: '#fafafa'
-            }}>
-              <h3 style={{ marginBottom: '0.5rem' }}>結果サンプル①</h3>
-              <p><strong>入力:</strong> {challenge.sampleInputs[0]}</p>
-              <p><strong>期待される出力:</strong> {challenge.expectedOutputs[0]}</p>
-            </div>
-
-            <div style={{
-              border: '1px solid #ddd',
-              borderRadius: '8px',
-              padding: '1rem',
-              marginBottom: '1rem',
-              backgroundColor: '#fafafa'
-            }}>
-              <h3 style={{ marginBottom: '0.5rem' }}>結果サンプル②</h3>
-              <p><strong>入力:</strong> {challenge.sampleInputs[1]}</p>
-              <p><strong>期待される出力:</strong> {challenge.expectedOutputs[1]}</p>
-            </div>
+            {challenge.sampleInputs.slice(0, 2).map((input, i) => (
+              <div
+                key={i}
+                style={{
+                  border: '1px solid #ddd',
+                  borderRadius: '8px',
+                  padding: '1rem',
+                  marginBottom: '1rem',
+                  backgroundColor: '#fafafa',
+                }}
+              >
+                <h3 style={{ marginBottom: '0.5rem' }}>結果サンプル{i + 1}</h3>
+                <p><strong>入力:</strong> {input}</p>
+                <p><strong>期待される出力:</strong> {challenge.expectedOutputs[i]}</p>
+              </div>
+            ))}
 
             <hr style={{ margin: '2rem 0' }} />
 
