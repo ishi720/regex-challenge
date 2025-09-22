@@ -85,14 +85,17 @@ const ChallengePage: React.FC = () => {
   const handleSubmit = async () => {
     if (!challenge) return;
 
+    // 確認ダイアログ
     const confirmed = window.confirm('ほんとうに回答してもいいですか？');
-
     if (!confirmed) return;
 
     try {
       if (USE_DATA_MODE === 'STUB') {
+        // STUBモードでは結果登録をスキップ
         navigate(`/result/${challenge.challengeId}`);
+
       } else {
+        // APIモードでは結果を登録
         const response = await fetch(`${API_ENDPOINT}/results`, {
           method: 'POST',
           headers: {
@@ -107,13 +110,14 @@ const ChallengePage: React.FC = () => {
           }),
         });
 
+        // APIエラーチェック
         if (!response.ok) {
           throw new Error(`登録失敗: ${response.status}`);
         }
 
+        // 返信データを取得して結果ページへ遷移
         const result = await response.json();
         navigate(`/result/${challenge.challengeId}`, { state: result });
-
       }
 
     } catch (err: unknown) {
@@ -137,9 +141,41 @@ const ChallengePage: React.FC = () => {
           <p>読み込み中またはチャレンジが見つかりませんでした。</p>
         ) : (
           <>
-            <h1 style={{ fontSize: '2rem', marginBottom: '1.5rem' }}>{challenge.title}</h1>
-            <p><strong>難易度:</strong> {challenge.difficulty}</p>
-            <p>問題文：{challenge.description}</p>
+            <h1 style={{ fontSize: '2rem', marginBottom: '1.5rem' }}>
+              {challenge.title}
+            </h1>
+
+            <div style={{ marginBottom: '1.5rem' }}>
+              <p><strong>難易度:</strong> {challenge.difficulty}</p>
+              <p><strong>問題文:</strong></p>
+              <p style={{ whiteSpace: 'pre-line', marginLeft: '1rem' }}>
+                {challenge.description}
+              </p>
+            </div>
+
+            <div style={{
+              border: '1px solid #ddd',
+              borderRadius: '8px',
+              padding: '1rem',
+              marginBottom: '1rem',
+              backgroundColor: '#fafafa'
+            }}>
+              <h3 style={{ marginBottom: '0.5rem' }}>結果サンプル①</h3>
+              <p><strong>入力:</strong> {challenge.sampleInputs[0]}</p>
+              <p><strong>期待される出力:</strong> {challenge.expectedOutputs[0]}</p>
+            </div>
+
+            <div style={{
+              border: '1px solid #ddd',
+              borderRadius: '8px',
+              padding: '1rem',
+              marginBottom: '1rem',
+              backgroundColor: '#fafafa'
+            }}>
+              <h3 style={{ marginBottom: '0.5rem' }}>結果サンプル②</h3>
+              <p><strong>入力:</strong> {challenge.sampleInputs[1]}</p>
+              <p><strong>期待される出力:</strong> {challenge.expectedOutputs[1]}</p>
+            </div>
 
             <hr style={{ margin: '2rem 0' }} />
 
