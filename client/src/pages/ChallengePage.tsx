@@ -141,10 +141,12 @@ const ChallengePage: React.FC = () => {
           <p>読み込み中またはチャレンジが見つかりませんでした。</p>
         ) : (
           <>
+            {/* タイトル */}
             <h1 style={{ fontSize: '2rem', marginBottom: '1.5rem' }}>
               {challenge.title}
             </h1>
 
+            {/* 難易度と説明 */}
             <div style={{ marginBottom: '1.5rem' }}>
               <p><strong>難易度:</strong> {challenge.difficulty}</p>
               <p><strong>問題文:</strong></p>
@@ -153,6 +155,7 @@ const ChallengePage: React.FC = () => {
               </p>
             </div>
 
+            {/* サンプル入力と期待される出力 */}
             <div style={{
               border: '1px solid #ddd',
               borderRadius: '8px',
@@ -179,6 +182,7 @@ const ChallengePage: React.FC = () => {
 
             <hr style={{ margin: '2rem 0' }} />
 
+            {/* 正規表現入力フォーム */}
             <div>
               <label>正規表現：</label><br />
               <input
@@ -196,13 +200,54 @@ const ChallengePage: React.FC = () => {
                 style={{ width: '100%', padding: '8px', marginBottom: '1rem' }}
               />
 
-              <div style={{ marginBottom: '1rem' }}>
-                <button onClick={handleTest} style={{ marginRight: '1rem' }}>
+              {/* テスト・回答ボタン */}
+              <div style={{ marginBottom: '1.5rem', display: 'flex', gap: '1rem' }}>
+                <button
+                  onClick={handleTest}
+                  style={{
+                    padding: '0.6rem 1.2rem',
+                    borderRadius: '6px',
+                    border: '1px solid #007bff',
+                    backgroundColor: '#007bff',
+                    color: '#fff',
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                  }}
+                  onMouseOver={(e) =>
+                    (e.currentTarget.style.backgroundColor = '#0056b3')
+                  }
+                  onMouseOut={(e) =>
+                    (e.currentTarget.style.backgroundColor = '#007bff')
+                  }
+                >
                   テスト
                 </button>
-                <button onClick={handleSubmit}>回答</button>
+
+                <button
+                  onClick={handleSubmit}
+                  style={{
+                    padding: '0.6rem 1.2rem',
+                    borderRadius: '6px',
+                    border: '1px solid #28a745',
+                    backgroundColor: '#28a745',
+                    color: '#fff',
+                    fontWeight: 600,
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                  }}
+                  onMouseOver={(e) =>
+                    (e.currentTarget.style.backgroundColor = '#1e7e34')
+                  }
+                  onMouseOut={(e) =>
+                    (e.currentTarget.style.backgroundColor = '#28a745')
+                  }
+                >
+                  回答
+                </button>
               </div>
 
+              {/* テスト結果表示 */}
               {challenge.sampleInputs.map((input, i) => (
                 <div key={i} style={{ marginBottom: '1.5rem' }}>
                   <p><strong>入力{i + 1}:</strong> {input}</p>
