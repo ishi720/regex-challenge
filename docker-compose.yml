@@ -1,0 +1,77 @@
+version: '3.8'
+
+services:
+  # MySQL Database
+  db:
+    image: mysql:8.0
+    container_name: regex-challenge-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: regex_challenge
+      MYSQL_USER: regexuser
+      MYSQL_PASSWORD: regexpass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./server/db/schema.sql:/docker-entrypoint-initdb.d/1-schema.sql
+      - ./server/db/seed.sql:/docker-entrypoint-initdb.d/2-seed.sql
+    networks:
+      - regex-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpassword"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Backend API Server
+  backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: regex-challenge-backend
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_USER: regexuser
+      DB_PASSWORD: regexpass
+      DB_NAME: regex_challenge
+      PORT: 3001
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - regex-network
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+
+  # Frontend React App
+  frontend:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: regex-challenge-frontend
+    restart: unless-stopped
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_ENDPOINT=http://localhost:3001/api
+    depends_on:
+      - backend
+    networks:
+      - regex-network
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+
+volumes:
+  mysql_data:
+
+networks:
+  regex-network:
+    driver: bridge
