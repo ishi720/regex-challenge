@@ -47,7 +47,47 @@ regex-challenge/
 ```
 
 
-# セットアップ手順
+# Dockerでの起動手順
+
+## 1. リポジトリのクローン
+```bash
+git clone https://github.com/ishi720/regex-challenge.git
+cd regex-challenge
+```
+
+## 2. コンテナの起動
+```bash
+docker compose up -d --build
+```
+
+初回起動時に `server/db/schema.sql` と `server/db/seed.sql` が自動で実行され、テーブル作成とサンプルデータ投入が行われます。
+
+## 3. アクセス
+
+| サービス | URL / ポート |
+|---|---|
+| フロントエンド | http://localhost:5173 |
+| バックエンドAPI | http://localhost:3001/api |
+| APIドキュメント（Swagger） | http://localhost:3001/api-docs |
+| MySQL | localhost:3307（ユーザー: `regexuser` / パスワード: `regexpass`） |
+
+
+## 4. 停止
+```bash
+# 停止
+docker compose down
+
+# DBのデータも削除して初期化する場合
+docker compose down -v
+```
+
+## ログの確認
+```bash
+docker compose logs -f
+```
+
+
+# セットアップ手順（ローカル環境）
 
 ## 1. リポジトリのクローン
 ```bash
@@ -91,6 +131,7 @@ mysql -u root -p
 CREATE DATABASE regex_challenge;
 USE regex_challenge;
 
+cd server
 # テーブル作成
 source db/schema.sql;
 
